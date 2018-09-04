@@ -14,7 +14,7 @@
 
             for($i=0;$i<100;$i++)
             {
-                $title = $this->getChar(rand(20,100));
+                $title = $this->getChar(rand(20,70));
                 $content = $this->getChar(rand(100,600));
                 $display = rand(10,500);
                 $is_show = rand(0,1);
