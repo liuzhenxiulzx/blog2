@@ -13,6 +13,7 @@
 
                 self::$pdo = new PDO('mysql:host=127.0.0.1;dbname=blogs','root','');
                 self::$pdo->exec('set names utf8');
+             
             }
    
         }
