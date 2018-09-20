@@ -3,7 +3,7 @@
 
     class IndexController{
         public function index(){
-            echo '欢迎来到我的博客';
+            view('common.nav');
         }
     }
 ?>

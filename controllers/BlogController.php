@@ -4,7 +4,7 @@
     use models\Blog;
 
     class BlogController{
-        
+        // 首页
         public function index(){
 
             $blogs = new Blog;
@@ -12,7 +12,7 @@
             
         }
 
-
+       
 
 
 
