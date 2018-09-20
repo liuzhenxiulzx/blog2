@@ -4,9 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+	<title>Document</title>
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
-   hello <?=$name?>
+	<form action="/user/regist" method="post">
+			<div class="form-group">
+				<label for="exampleInputFile">头像</label>
+				<input type="file" id="exampleInputFile" name="face">
+			</div>
+			<div class="form-group">
+			  <label for="exampleInputEmail1">邮箱：</label>
+			  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" name="email">
+			</div>
+			<div class="form-group">
+			  <label for="exampleInputPassword1">密码</label>
+			  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
+			</div>
+			<button type="submit" class="btn btn-default">注册</button>
+	</form>
 </body>
 </html>

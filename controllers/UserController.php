@@ -13,5 +13,36 @@
                 'name' => $name
             ]);
         }
+
+        // 注册
+
+        public function registview(){
+            view('user.user');
+        }
+
+        public function regist(){
+
+            $email = $_POST['email'];
+            $password = md5($_POST['password']);
+            $face = $_POST['face'];
+
+            $user = new User;
+            $user->regist($email,$password,$face);
+          
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 ?>
