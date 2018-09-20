@@ -17,7 +17,7 @@
         // 注册
 
         public function registview(){
-            view('user.user');
+            view('user.regist');
         }
 
         public function regist(){
@@ -30,6 +30,21 @@
             $user->regist($email,$password,$face);
           
         }
+
+        // 登录
+        public function loginview(){
+            view('user.login');
+        }
+
+        public function login(){
+            $email = $_POST['email'];
+            $password = md5($_POST['password']);
+
+            $user = new User;
+            $user->login($email,$password);
+
+            header('Location:'."http://localhost:8888/blog/index");
+        } 
 
 
 

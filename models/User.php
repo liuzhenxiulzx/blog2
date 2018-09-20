@@ -17,6 +17,23 @@
             ]);
         }
 
+        // 登录
+        public function login($email,$password){
+            $stmt = self::$pdo->prepare('SELECT FROM users WHERE eamil=? , password=?');
+            $stmt->execute([
+                $email,
+                $password,
+            ]);
+           return  $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+           if($data){
 
+                $data['email'] == $_SESSION['email'];
+                $data['password'] == $_SESSION['password'];
+                return true;
+
+           }else{
+               return false;
+           }
+        }
     }
 ?>

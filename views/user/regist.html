@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
+		<?php view('common.nav')?>
 	<form action="/user/regist" method="post">
 			<div class="form-group">
 				<label for="exampleInputFile">头像</label>
@@ -23,5 +24,6 @@
 			</div>
 			<button type="submit" class="btn btn-default">注册</button>
 	</form>
+	<?php view('common.footer')?> 
 </body>
 </html>
