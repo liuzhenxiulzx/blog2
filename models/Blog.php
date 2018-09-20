@@ -93,8 +93,11 @@
         }
 
         
-
-
+        // 取出所有数据生成静态页
+        public function static_page(){
+            $stmt = self::$pdo->query('select * from blogs');
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
 
 
 

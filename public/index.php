@@ -15,7 +15,7 @@
             // extract 把数组转成变量
         }
         // 加载视图文件
-        require_once ROOT.'views/'.str_replace('.','/',$file).'.html';
+        require ROOT.'views/'.str_replace('.','/',$file).'.html';
 
     }
     
