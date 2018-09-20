@@ -26,10 +26,11 @@
             ]);
            return  $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
            if($data){
-
-                $data['email'] == $_SESSION['email'];
-                $data['password'] == $_SESSION['password'];
-                return true;
+               
+               $_SESSION['id']=$user['id'];
+               $_SESSION['email'] ==  $data['email'];
+               $_SESSION['password'] == $data['password']  ;
+               return true;
 
            }else{
                return false;

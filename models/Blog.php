@@ -99,6 +99,35 @@
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
+        // 发表日志
+        public function report($title,$content,$is_show){
+           
+            $stmt = self::$pdo->prepare('INSERT INTO blogs (title,content,created_at,is_show) VALUES(?,?,now(),?)');
+            $data =  $stmt->execute([
+                $title,
+                $content,
+                $is_show,
+            ]);
+
+            if(!$data){
+                echo "发表失败";
+                $error = $stmt->errorInfo();
+                echo "<pre>";
+                var_dump($error);
+
+                exit;
+            }else{
+                return true;
+            }
+            // 返回新插入的记录的ID
+            // return self::$pdo->lastInsertId();
+            
+        }
+
+        // 修改日志
+        // public function modify(){
+        //     $stmt =  self::$pdo->prepare('UPDATE INTO blogs()')
+        // }
 
 
 

@@ -41,9 +41,13 @@
             $password = md5($_POST['password']);
 
             $user = new User;
-            $user->login($email,$password);
+            if($user->login($email,$password)){
+                 header('Location:'."http://localhost:8888/blog/index");
+            }else{
+                echo "邮箱或密码错误";
+            }
 
-            header('Location:'."http://localhost:8888/blog/index");
+           
         } 
 
 

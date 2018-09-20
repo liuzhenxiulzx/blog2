@@ -38,6 +38,34 @@
         }
 
 
+        //发表日志
+        public function report_view(){
+            view('blogs.write');
+        } 
+
+        public function report(){
+
+            $title = $_POST['title'];
+            $content = $_POST['content'];
+            $is_show = $_POST['is_show'];
+
+            $blog = new Blog();
+            $data = $blog->report($title,$content,$is_show);
+
+            if($data){
+                header('Location:'."/blog/index");
+            }else{
+                echo "日志发表失败";
+            }
+        }
+            
+        //修改日志
+        // public function modify(){
+        //     $blog = new Blog;
+        //     $blog -> modify();
+
+        // } 
+
 
 
 

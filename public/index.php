@@ -1,4 +1,5 @@
 <?php
+    session_start();
     // 项目根目录
     define('ROOT',dirname(__FILE__).'/../');
     // 类加载函数
