@@ -54,30 +54,39 @@
                 $order_way = 'asc';
             }
 
-            // 翻页
-            // $perpage = 10;
-            // // 接收当前页码
-            // $page = isset($_GET['page']) ? max(1,(int)$_GET['page']) : 1;
-            // // 计算开始的下标
-            // $offset = ($page-1)*$perpage;
-            // // 制作按钮
-            // // 取出总的记录数
-            // $stmt = self::$pdo->prepare("SELECT COUNT(*) FROM blogs WHERE $where");
-            // $stmt->execute($value);
-            // $count = $stmt->fetch(PDO::FETCH_COLUMN);
-            // // 计算总的页数
-            // $pageCount = ceil($count / $perpage);
-            // $btns = '';
-            // for($i=1;$i<$pageCount;$i++){
-            //     // 先获取之前的参数
-            //     $params = getUrlParams(['page']);
-            //     $class = $page==$i ? 'active' : '';
-            //     $btns .= "<a class='$class' href='?{$params}page=$i'>$i</a>";
-            // }
+
+            // ===================翻页===============
+            // 每页条数
+            $perpage = 15;
+            // 接收当前页码（大于等于1的整数） max() 取最大值
+            $page = isset($_GET['page']) ? max(1,(int)$_GET['page']) : 1;
+            // 计算开始的下标
+            // 1->0
+            // 2->15
+            // 3->30
+            $offset = ($page-1)*$perpage;
+            
+            // 制作按钮
+            // 取出总的记录数
+            $stmt = self::$pdo->prepare("SELECT COUNT(*) FROM blogs WHERE $where");
+            $stmt->execute($value);
+            $counts = $stmt->fetch(PDO::FETCH_COLUMN); //FETCH_COLUMN 只取数字
+
+            // 计算总的页数 ceil()向上取整 floor()向下取整
+            $countpage = ceil($counts/$perpage);
+            // echo $countpage;
+            // exit;
+            $btn = '';
+            for($i=1;$i<=$countpage;$i++){
+                // 先获取之前的参数 (在搜索，排序...的基础上分页)
+                $cspage = getUrlParams(['page']);
+
+                $btn.="<a href='?{$cspage}page=$i'>$i</a>";
+            }
 
 
             // // 预处理sql
-            $stmt = self::$pdo->prepare("SELECT * FROM blogs WHERE $where ORDER BY $order_by $order_way");
+            $stmt = self::$pdo->prepare("SELECT * FROM blogs WHERE $where ORDER BY $order_by $order_way LIMIT $offset,$perpage");
             // var_dump($stmt);
             // 执行sql
             $stmt->execute($value);
@@ -88,7 +97,8 @@
             // 取数据
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
             view('blogs.index',[
-                'blog'=>$data
+                'blog'=>$data,
+                'btn'=>$btn,
             ]);
         }
 

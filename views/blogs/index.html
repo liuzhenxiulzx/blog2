@@ -6,8 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-       a{
+     
+       
+         a{
             text-decoration: none;
+            /* font-size: 19px;
+            letter-spacing:5px */
         }
     </style>
 </head>
@@ -49,7 +53,7 @@
         <?php foreach ($blog as $v): ?>
         <tr>
             <td><?=$v['id']?></td>
-            <td><a target="_blank" href="/contents/<?=$v['id']?>.html"><?=$v['title']?></a></td>
+            <td><a target="_blank" id="title" href="/contents/<?=$v['id']?>.html"><?=$v['title']?></a></td>
             <td><?=$v['created_at']?></td>
             <td><?=$v['is_show']==0 ? '不显示' : '显示' ?></td>
             <td><?=$v['display']?></td>
@@ -60,8 +64,11 @@
             </td>
         </tr>
         <?php endforeach;?> 
-        <!-- <?=$btns?> -->
+        
     </table>
+    <hr>
+    <?=$btn?>
+
     <?php view('common.footer') ?>
 </body>
 </html>
