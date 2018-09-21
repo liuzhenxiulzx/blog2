@@ -1,2 +1,4 @@
 /public/contents/
 /public/simditor-2.3.6/
+/vendor/
+/composer.lock

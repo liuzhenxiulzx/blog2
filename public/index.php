@@ -1,60 +1,76 @@
 <?php
-    session_start();
-    // 项目根目录
-    define('ROOT',dirname(__FILE__).'/../');
-    // 类加载函数
-    function autoLoadClass($class){
-        require_once ROOT.str_replace('\\','/',$class).'.php';
-    }
-    // 注册加载函数
-    spl_autoload_register('autoLoadClass');
-    // 视图加载函数
-    function view($file,$data=[]){
-        // 如果传递了数据，就把数组展开成比变量
-        if($data){
-            extract($data);
-            // extract 把数组转成变量
-        }
-        // 加载视图文件
-        require ROOT.'views/'.str_replace('.','/',$file).'.html';
 
+    // 定义常量 
+    define('ROOT',dirname(__FILE__).'/../');
+
+    // 类的自动加载 
+    // controller\IndexController
+    function autoload($class){
+
+        $path = str_replace('\\','/',$class);
+
+        require(ROOT.$path.'.php');
     }
     
-        // 解析路由
-        function route(){
-            // 获取URL
-            $url = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] :'/';
-            // 定义默认的控制器和方法
-            $defaultController = "IndexController";
-            $defaultAction = "index";
+    // 注册函数
+    spl_autoload_register('autoload');
 
-            if($url == '/'){
+    // 解析路由：解析URL上的路径：控制器/方法
+    // 获取URL上的路径
+    if(isset($_SERVER['PATH_INFO'])){
+        //  /blog/index
+        $pathInfo = $_SERVER['PATH_INFO'];
+        // 根据/ 转成数组
+        $pathInfo = explode('/',$pathInfo);
+        // 得到控制器名和方法名
+        $controller =ucfirst($pathInfo[1]).'Controller';
+        $action = $pathInfo[2];
 
-                return [
-                    $defaultController,
-                    $defaultAction
-                ];
+    }else{
+        // 默认控制器和方法名
+        $controller = "IndexController";
+        $action = 'index';
+    }
 
-            }else if(strpos($url,'/',1) !== FALSE){
+    // 为控制添加命名空间
+    $fullController = 'controllers\\'.$controller;
 
-                // 去掉第一个
-                $url = ltrim($url,'/');
-                // 取出控制器和方法
-                $route = explode('/',$url);
-                // 格式化控制器名，比如 user => UserController
-                $route[0] = ucfirst($route[0].'Controller');
-                return $route;
+    $_c = new $fullController;
+    $_c->$action();
 
-            }else{
-                die('请求的URL格式不正确');
-            }
-        }
-        $route = route();
 
-        // 任务分发到控制器
-        $controller = "controllers\\{$route[0]}";
-        $action = $route[1];
-        // 创建控制器对象
-        $_c = new $controller;
-        $_c->$action();
+// 加载视图
+//如： view('user.user',[
+//     'name' => $name
+// ]);
+// 参数一：加载的视图的文件名 
+// 参数二：向视图传的参数 
+function view($filename,$data=[]){
+
+    // 解压数组成变量  
+    extract($data);
+
+    $viewpath = str_replace('.','/',$filename).'.html';
+
+    // 加载视图
+    require(ROOT.'views/'.$viewpath);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ?>
