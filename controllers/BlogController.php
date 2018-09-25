@@ -17,6 +17,7 @@
             $blog = new Blog();
             $data = $blog->static_page();  
       
+            
             // 开启缓冲区
             ob_start();
 
@@ -37,6 +38,26 @@
              }
         }
 
+        // 更新浏览量
+        public function update_display(){
+            // 接收日志ID
+            $id = (int)$_GET['id'];
+            // 连接redis
+            $redis = new \libs\Redis;
+            // 判断blog_display 这个hash中有没有键是blog_$id
+            $key = "blog_{$id}";
+            // 判断hash中是否有这个值
+            if($redis->hexists('blog_displays',$key)){
+                // 累加 并 返回添加完之后的值
+                $numvalue = $redis->hincrby('blog_displays',$key,1);
+
+            }else{
+                // 从数据库中取出浏览量
+                $blog = new Blog;
+                $blog -> getdisplay($id);
+            }
+
+        }
 
         //发表日志
         public function report_view(){

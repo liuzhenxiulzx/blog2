@@ -109,6 +109,16 @@
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
+
+        // 取出浏览量
+        public function getdisplay(){
+            $stmt->self::$pdo->prepare('SELECT display FROM blog WHERE id=?');
+            $stmt->execute($id);
+            return $stmt->fetch(PDO::FETCH_COLUMN);
+   
+        }
+
+
         // 发表日志
         public function report($title,$content,$is_show){
            
