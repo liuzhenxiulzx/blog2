@@ -13,7 +13,7 @@
             // 如果还没有 redis 就生成一个
             // 只有每 一次 才会连接
             if(self::$redis === null){
-                $redis = new \Predis\Client([
+                self::$redis = new \Predis\Client([
                     'scheme' => 'tcp',
                     'host'   => '127.0.0.1',
                     'port'   => 6379,
